@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './InputLabel.module.scss';
 import { v4 } from 'uuid';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -13,12 +13,13 @@ function InputLabel() {
     check: boolean
   }
   const [alignment, setAlignment] = useState('all');
-  const [todos, setTodos] = useState<any>([]);
+  const [todos, setTodos] = useState<Array<Todo>>([]);
   const [value, setValue] = useState('');
   const [list, setList] = useState('');
   const clearComplete = () => {
-    setTodos([...todos.filter((todo: any) => {
+    setTodos([...todos.filter((todo: Todo) => {
       if (!todo.check) return todo;
+      return undefined
     })])
   }
   const handleChange = (event: any, newAlignment: any) => {
@@ -30,7 +31,7 @@ function InputLabel() {
   }
   const todoSend = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key === 'Enter' && value.trim()) {
-      const newTodo = {
+      const newTodo: Todo = {
         id: v4(),
         content: value,
         check: false
@@ -114,6 +115,7 @@ function InputLabel() {
               )
             }
           }
+          return undefined
         })}
       </ul>
     </div>
